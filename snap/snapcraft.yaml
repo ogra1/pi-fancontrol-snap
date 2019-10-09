@@ -1,0 +1,25 @@
+name: pi-fancontrol
+base: core18
+version: '0.1'
+summary: Control a raspberry pi fan attached to GPIO 14
+description: |
+  Control a fan attached to a GPIO via NPN transistor
+  (defaults to GPIO 14 (pin 8))
+
+grade: stable
+confinement: strict
+
+apps:
+  pi-fancontrol:
+    command: fancontrol.sh
+    daemon: simple
+    plugs:
+      - gpio
+      - hardware-observe
+
+parts:
+  fancontrol:
+    plugin: nil
+    source: .
+    override-build: |
+      cp -av fancontrol.sh $SNAPCRAFT_PART_INSTALL/
