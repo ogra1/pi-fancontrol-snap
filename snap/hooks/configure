@@ -1,0 +1,25 @@
+#! /bin/sh
+
+# set default values if they have not been set by the install hook yet
+[ -n "$(snapctl get gpio)" ] || snapctl set gpio=14
+[ -n "$(snapctl get threshold)" ] || snapctl set threshold=50
+[ -n "$(snapctl get interval)" ] || snapctl set interval=120
+
+# we can only run if both interfaces are porperly connected
+if ! snapctl is-connected gpio; then
+  exit 0
+fi
+if ! snapctl is-connected hardware-observe; then
+  exit 0
+fi
+
+# we started originally with disabled service, make sure it is enabled
+# since we are sure defaults are set and interfaces are connected
+if snapctl services ${SNAP_NAME}.${SNAP_NAME} | grep -q inactive; then
+  snapctl start --enable ${SNAP_NAME}.${SNAP_NAME} 2>&1 || true
+  exit 0
+fi
+
+# service was already enabled, just restart it to make sure the new
+# config values are picked up
+snapctl restart ${SNAP_NAME}.${SNAP_NAME} 2>&1 || true

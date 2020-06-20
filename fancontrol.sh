@@ -12,9 +12,9 @@
 
 set -e
 
-INTERVAL="120"
-THRESHOLD="50"
-GPIO="14"
+INTERVAL="$(snapctl get interval)"
+THRESHOLD="$(snapctl get threshold)"
+GPIO="$(snapctl get gpio)"
 
 while [ ! -f /sys/class/gpio/gpio${GPIO}/value ]
 do

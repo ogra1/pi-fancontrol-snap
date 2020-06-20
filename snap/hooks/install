@@ -1,0 +1,11 @@
+#! /bin/sh
+
+# make sure all required defaults are set
+[ -n "$(snapctl get gpio)" ] || snapctl set gpio=14
+[ -n "$(snapctl get threshold)" ] || snapctl set threshold=50
+[ -n "$(snapctl get interval)" ] || snapctl set interval=120
+
+# we install with the service disabled, the connect hooks for
+# hardware-observe and gpio will start it once both interfaces
+# are connected
+snapctl stop --disable ${SNAP_NAME}.${SNAP_NAME} 2>&1 || true

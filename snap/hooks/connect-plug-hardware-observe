@@ -1,0 +1,15 @@
+#! /bin/sh
+
+# we need both interfaces connected, so drop out if the other one is not
+# attached to the slot yet
+if ! snapctl is-connected gpio; then
+  echo "please run 'snap connect ${SNAP_NAME}:gpio <gadget>:bcm-gpio-14"
+  echo
+  echo "keeping service disabled for the moment"
+  exit 0
+fi
+
+# now we can start the service
+if snapctl services ${SNAP_NAME}.${SNAP_NAME} | grep -q inactive; then
+  snapctl start --enable ${SNAP_NAME}.${SNAP_NAME} 2>&1 || true
+fi
