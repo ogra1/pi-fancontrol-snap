@@ -11,7 +11,7 @@ that your fan is attached to (see https://pinout.xyz for correct mapping)
 
 The snap allows a few configurations to be set
 
-Pick a different GPIO to swithc the fan on/off (do not forget to use the
+Pick a different GPIO to switch the fan on/off (do not forget to use the
 above connect command to enable access to this changed GPIO)
 
     snap set pi-fancontrol gpio=23
