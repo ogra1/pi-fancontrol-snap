@@ -1,6 +1,9 @@
 Control a fan attached to a GPIO via NPN transistor
 (defaults to GPIO 14 (pin 8))
 
+For more info see
+https://ograblog.wordpress.com/2019/10/09/attaching-a-cpu-fan-to-a-rpi-running-ubuntu-core/
+
 Make sure to connect the snap interface for the correct GPIO
 that your fan is attached to (see https://pinout.xyz for correct mapping)
 
