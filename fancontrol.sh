@@ -19,7 +19,7 @@ GPIO="$(snapctl get gpio)"
 while [ ! -f /sys/class/gpio/gpio${GPIO}/value ]
 do
   sleep 1
-  echo "fancontrol: sleeping while waiting for /sys/class/gpio/gpio${GPIO}/value"
+  echo "fancontrol: sleeping while waiting for file /sys/class/gpio/gpio${GPIO}/value"
 done
 
 if [ "(cat /sys/class/gpio/gpio${GPIO}/direction)" != "out" ]; then
