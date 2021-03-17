@@ -11,6 +11,10 @@ description: |
 
       snap connect pi-fancontrol:gpio pi:bcm-gpio-14
 
+  To read temperatures you also need to connect the hardware-observe interface
+
+      snap connect pi-fancontrol:hardware-observe
+
   The snap allows a few configurations to be set
 
   Pick a different GPIO to switch the fan on/off (do not forget to use the

@@ -5,11 +5,18 @@
 [ -n "$(snapctl get threshold)" ] || snapctl set threshold=50
 [ -n "$(snapctl get interval)" ] || snapctl set interval=120
 
-# we can only run if both interfaces are porperly connected
-if ! snapctl is-connected gpio; then
-  exit 0
+# only on core
+if grep -q snap_core /proc/cmdline || grep -q snapd_recovery /proc/cmdline; then
+  # we can only run if both interfaces are porperly connected
+  if ! snapctl is-connected gpio; then
+    exit 0
+  fi
+else
+  logger -t ${SNAP_NAME} "Not on Ubuntu Core ! Please use --devmode to get access to GPIOs"
 fi
+
 if ! snapctl is-connected hardware-observe; then
+  logger -t ${SNAP_NAME} "Can not access hardware data, please run: snap connect $SNAP_NAME:hardware-observe"
   exit 0
 fi
 
